@@ -10,7 +10,10 @@ app.use(bodyParser.json());
 // form仅支持单文件为file字段，更多使用，参考multer使用文档
 app.use(multer().single('file'));
 
-app.use([ '/*'], router);
+app.use([ '/*'], function(req, res, next) {
+  console.info('*****************************req.originalUrl********************:',req.originalUrl);
+  next();
+}, router);
 router.post('/', function (req, res, next) {
   console.info('/////////////////////////////////////');
   console.info('req.headers:',req.headers,'\r\nreq.body:',req.body, '\r\nreq.file:',req.file);
